@@ -1,0 +1,236 @@
+{% extends "base.html" %} {% block content %}
+<body>
+  <h1>Wordle Bot</h1>
+  <p style="color: rgb(158, 155, 155); text-align: center">
+    This is an Reenforcement learning bot that trained on the game Wordle. Its
+    made with a variation on MuZero. With monte carlo tree search. More details
+    can be seen here.
+  </p>
+  <div id="game-board">
+    <div name="row-1" class="letter-row">
+      <div class="letter-box" style="background-color:{{row1colors[0]}}">
+        <p class="filled-box">{{row1[0]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row1colors[1]}}">
+        <p class="filled-box">{{row1[1]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row1colors[2]}}">
+        <p class="filled-box">{{row1[2]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row1colors[3]}}">
+        <p class="filled-box">{{row1[3]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row1colors[4]}}">
+        <p class="filled-box">{{row1[4]}}</p>
+      </div>
+    </div>
+    <div class="letter-row">
+      <div class="letter-box" style="background-color:{{row2colors[0]}}">
+        <p class="filled-box">{{row2[0]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row2colors[1]}}">
+        <p class="filled-box">{{row2[1]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row2colors[2]}}">
+        <p class="filled-box">{{row2[2]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row2colors[3]}}">
+        <p class="filled-box">{{row2[3]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row2colors[4]}}">
+        <p class="filled-box">{{row2[4]}}</p>
+      </div>
+    </div>
+    <div class="letter-row">
+      <div class="letter-box" style="background-color:{{row3colors[0]}}">
+        <p class="filled-box">{{row3[0]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row3colors[1]}}">
+        <p class="filled-box">{{row3[1]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row3colors[2]}}">
+        <p class="filled-box">{{row3[2]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row3colors[3]}}">
+        <p class="filled-box">{{row3[3]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row3colors[4]}}">
+        <p class="filled-box">{{row3[4]}}</p>
+      </div>
+    </div>
+    <div class="letter-row">
+      <div class="letter-box" style="background-color:{{row4colors[0]}}">
+        <p class="filled-box">{{row4[0]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row4colors[1]}}">
+        <p class="filled-box">{{row4[1]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row4colors[2]}}">
+        <p class="filled-box">{{row4[2]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row4colors[3]}}">
+        <p class="filled-box">{{row4[3]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row4colors[4]}}">
+        <p class="filled-box">{{row4[4]}}</p>
+      </div>
+    </div>
+    <div class="letter-row">
+      <div class="letter-box" style="background-color:{{row5colors[0]}}">
+        <p class="filled-box">{{row5[0]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row5colors[1]}}">
+        <p class="filled-box">{{row5[1]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row5colors[2]}}">
+        <p class="filled-box">{{row5[2]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row5colors[3]}}">
+        <p class="filled-box">{{row5[3]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row5colors[4]}}">
+        <p class="filled-box">{{row5[4]}}</p>
+      </div>
+    </div>
+    <div class="letter-row">
+      <div class="letter-box" style="background-color:{{row6colors[0]}}">
+        <p class="filled-box">{{row6[0]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row6colors[1]}}">
+        <p class="filled-box">{{row6[1]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row6colors[2]}}">
+        <p class="filled-box">{{row6[2]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row6colors[3]}}">
+        <p class="filled-box">{{row6[3]}}</p>
+      </div>
+      <div class="letter-box" style="background-color:{{row6colors[4]}}">
+        <p class="filled-box">{{row6[4]}}</p>
+      </div>
+    </div>
+    <h3>Secret Word</h3>
+    <div class="letter-row">
+      <div class="letter-box"><p class="filled-box">{{secret[0]}}</p></div>
+      <div class="letter-box"><p class="filled-box">{{secret[1]}}</p></div>
+      <div class="letter-box"><p class="filled-box">{{secret[2]}}</p></div>
+      <div class="letter-box"><p class="filled-box">{{secret[3]}}</p></div>
+      <div class="letter-box"><p class="filled-box">{{secret[4]}}</p></div>
+    </div>
+    <div class="first-row">
+      <div class="button-row">
+        <form action="/step" method="POST">
+          <button class="button">Next Guess</button>
+        </form>
+        <form action="/reset" method="POST">
+          <button class="button">Reset Game</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="flex-container wrapper">
+    <div class="policy">
+      <h3>Next word choice by frequency</h3>
+      <div class="chart-container" style="position: relative">
+        <div>
+          <canvas id="policyChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="value">
+      <h3>Confidance of success</h3>
+      <div class="chart-container" style="position: relative">
+        <canvas id="valueChart"></canvas>
+      </div>
+    </div>
+  </div>
+</body>
+{% block javascript %}
+<script>
+  const ctx = document.getElementById("policyChart").getContext("2d");
+  const policyChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [{% for item in policy %}
+        "{{ item }}",
+      {% endfor %}],
+      datasets: [
+        {
+          label: "word likelyhood",
+          data: [{% for item in freqs %}
+        "{{ item }}",
+      {% endfor %}],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+  });
+  let steps = 5
+  let max = 1
+  const ctx2 = document.getElementById("valueChart").getContext("2d");
+  const valueChart = new Chart(ctx2, {
+    type: "horizontalBar",
+    data: {
+      labels: ['value'],
+      datasets: [{
+        label: 'value',
+        data: [{{value}}],
+        fill: false,
+        backgroundColor: [
+          `{{valueColor}}`,
+        ],
+        borderColor: [
+          `{{valueBorder}}`,
+        ],
+        borderWidth: 1
+      }]
+    },
+
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      elements: {
+        bar: {
+          borderWidth: 2,
+        }
+      },
+      scales: {
+          xAxes: [{
+              display: true,
+              ticks: {
+                  min: -1.5,
+                  max: 1.5,
+                  stepSize: 0.5
+              }
+          }]
+      }
+    },
+  });
+</script>
+{% endblock %} {% endblock %}

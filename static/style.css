@@ -1,0 +1,142 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: serif;
+  color: #377ba8;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+body {
+  background-color: #121213;
+}
+
+#game-board {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.letter-box {
+  border: 2px solid #3a3a3c;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.filled-box {
+  color: #ffffff;
+}
+
+.letter-row {
+  display: flex;
+}
+
+#keyboard-cont {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#keyboard-cont div {
+  display: flex;
+}
+
+.second-row {
+  margin: 0.5rem 0;
+}
+
+.keyboard-button {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.5rem;
+  margin: 0 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #808384;
+}
+.button-row {
+  display: flex;
+}
+.first-row {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  letter-spacing: 2px;
+  border: none;
+  /* width: 133px; */
+  height: 47px;
+  margin: 19px;
+  border-radius: 23.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: transparent;
+  border: white 2px solid;
+  font-size: 15px;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Poppins-Bold";
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+button:hover {
+  cursor: pointer;
+  border: white 2px solid;
+  border-radius: 23.5px;
+  background: slategrey;
+  transition: all 0.4s;
+}
+button:focus {
+  border: none;
+  box-shadow: none;
+  background: slategrey;
+  outline: none;
+  border: white 2px solid;
+  transition: all 0.4s;
+}
+button:visited {
+  background: transparent;
+}
+
+value,
+policy {
+  margin: 0;
+  padding: 20px;
+  border: 1px solid #000000;
+}
+
+@media screen and (min-width: 640px) {
+  .flex-container {
+    display: flex;
+  }
+}
+
+.wrapper {
+  margin: auto;
+  max-width: 75rem;
+}
+
+.value {
+  flex: 0 1 300px;
+}
+.policy {
+  flex: 1;
+}
