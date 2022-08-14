@@ -14,4 +14,5 @@ switch to the wordle bot repo
 6. Watch your bot take its first steps!
 
 Navigate to localhost:5000
+
 Enjoy!
