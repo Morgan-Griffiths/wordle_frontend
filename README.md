@@ -4,13 +4,14 @@ This is a small frontend for the wordle bot https://github.com/Morgan-Griffiths/
 
 ## How to use
 
-both servers must be running at the same time. app.py and server.py in the wordle bot repo.
+switch to the wordle bot repo
 
-wordle_frontend
-`python app.py`
-
-wordle
-`python server.py`
+1. Train a version with main.py
+2. Store your desired weights/date-time/model.checkpoint as weights/production.checkpoint
+3. Run `python server.py`
+4. Switch to wordle_frontend and run `python app.py`
+5. Navigate to localhost:5000
+6. Watch your bot take its first steps!
 
 Navigate to localhost:5000
 Enjoy!
