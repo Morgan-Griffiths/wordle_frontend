@@ -2,6 +2,8 @@
 
 This is a small frontend for the wordle bot https://github.com/Morgan-Griffiths/wordle
 
+![img](./images/wordle_frontend.png "Wordle Frontend")
+
 ## How to use
 
 switch to the wordle bot repo
